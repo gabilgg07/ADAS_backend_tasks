@@ -10,9 +10,9 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // $posts = DB::table("posts")->get();
-        // dd($posts);
-        $posts = DB::select("SELECT * from posts");
+
+        // -------- CORE SQL --------
+        // $posts = DB::select("SELECT * from posts");
         // $posts = DB::select("SELECT * from posts where id=?", [5]);
         // dump($posts[0]->title);
         // dump($posts[0]->body);
@@ -23,6 +23,40 @@ class HomeController extends Controller
         // dump($deletedsCount);
         // $updatedsCount = DB::update("UPDATE posts set `title`=? where id<?", ['Updated Title', 75]);
         // dump($updatedsCount);
+
+
+        // -------- QUERY BUILDER --------
+
+        // $posts = DB::table("posts")->get(); // butun postlar gelir
+
+        // $data = collect(DB::table("posts")
+        //     ->select("id", "title", "count")
+        // ->where("id", "=", 51)
+        // ->whereBetween("count", [20, 30])
+        // ->whereNotBetween("count", [20, 30])
+        // ->whereIn("id", [44, 55, 66, 77, 88])
+        // ->whereNull("body")
+        // ->orderBy("id", "desc")
+        // ->skip(10)
+        // ->take(10)
+        // ->inRandomOrder()
+        // ->first());
+        // ->find(10));
+
+        $data = DB::table("posts")
+            ->select("id", "title", "count")
+            // ->count("id")
+            // ->count("body");
+            // ->min("count");
+            // ->max("count");
+            // ->sum("count");
+            ->avg("count");
+
+        // dd($posts->skip(50));
+        // dd($data?->title);
+        // dd($data);
+        dump($data);
+
         return view("client.home.index");
     }
 }
