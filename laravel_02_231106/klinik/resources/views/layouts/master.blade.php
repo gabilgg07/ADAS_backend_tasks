@@ -21,6 +21,15 @@
     <!-- Navbar End -->
 
 
+    @if ($_SERVER['REQUEST_URI']==='/')
+    @include("layouts.includes.hero")
+    @else
+    <!-- Page Header Start -->
+    @include("layouts.partials.header")
+    <!-- Page Header End -->
+    @endif
+
+
     @yield("content")
 
 
